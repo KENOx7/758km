@@ -21,8 +21,6 @@
   <meta name="msapplication-TileImage" content="favicon.png">
   <meta name="theme-color" content="#111827">
 
-
-  
   <style>
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #111827; }
@@ -42,11 +40,9 @@
 
   <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
     <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">2-ci KURS</button>
-    <button 
-    onclick="window.location.href='https://kenox7.github.io/herkes/'" 
-    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-    Qayıblar
-    </button>
+    <a href="https://kenox7.github.io/herkes/" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+     Qayıblar
+    </a>
   </nav>
 
   <main class="container mx-auto px-4">
@@ -66,16 +62,16 @@
   
     const dersCedveliKurs2 = {
       "alt": { 1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 204)", "2)Verilənlər bazası sistemləri (mühazirə) - Niyazi Sənan (14:20-15:40, Otaq 433)", "3)Proqramlaşdırmanın əsasları-2 (mühazirə) - Niyazi Sənan (15:55-17:15, Otaq 433)"], 
-               2: ["1)Ehtimal nəzəriyyəsi və statistika (seminar) - Məmmədov Mənsim (12:45-14:05, Otaq 517)", "2)XDİAK-3 (seminar) - Zehnallı A (14:20-15:40, Otaq 517)", "3)Verilənlər bazası sistemləri (mühazirə) - Niyazi Sənan (14:20-15:40, Otaq 432)"], 
-               3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)"], 
-               4: ["1)Dövrlər nəzəriyyəsi (mühazirə) - Həsənov E (12:45-14:05, Otaq 431)", "2)XDİAK-3 (seminar) - Zeynallı A (14:20-15:40, Otaq 504)"], 
-               5: ["1)Dövrlər nəzəriyyəsi (seminar) - Həsənov E (12:45-14:05, Otaq 432)", "2)Verilənlər bazası sistemləri (seminar) - Niyazi Senan (14:20-15:40, Otaq 432)"] },
+              2: ["1)Ehtimal nəzəriyyəsi və statistika (seminar) - Məmmədov Mənsim (12:45-14:05, Otaq 517)", "2)XDİAK-3 (seminar) - Zehnallı A (14:20-15:40, Otaq 517)", "3)Verilənlər bazası sistemləri (mühazirə) - Niyazi Sənan (14:20-15:40, Otaq 432)"], 
+              3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)"], 
+              4: ["1)Dövrlər nəzəriyyəsi (mühazirə) - Həsənov E (12:45-14:05, Otaq 431)", "2)XDİAK-3 (seminar) - Zeynallı A (14:20-15:40, Otaq 504)"], 
+              5: ["1)Dövrlər nəzəriyyəsi (seminar) - Həsənov E (12:45-14:05, Otaq 432)", "2)Verilənlər bazası sistemləri (seminar) - Niyazi Senan (14:20-15:40, Otaq 432)"] },
       
       "ust": { 1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 204)", "2)Verilənlər bazası sistemləri (mühazirə) - Niyazi Sənan (14:20-15:40, Otaq 433)", "3)Proqramlaşdırmanın əsasları-2 (mühazirə) - Niyazi Sənan (15:55-17:15, Otaq 433)"], 
-               2: ["2)XDİAK-3 (seminar) - Zehnallı A (14:20-15:40, Otaq 517)", "3)Proqramlaşdırmanın əsasları-2 (seminar) - Niyazi Sənan (14:20-15:40, Otaq 432)"], 
-               3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)"], 
-               4: ["1)Dövrlər nəzəriyyəsi (mühazirə) - Həsənov E (12:45-14:05, Otaq 431)", "2)XDİAK-3 (seminar) - Zeynallı A (14:20-15:40, Otaq 504)"], 
-               5: ["1)Dövrlər nəzəriyyəsi (seminar) - Həsənov E (12:45-14:05, Otaq 432)", "2)Verilənlər bazası sistemləri (seminar) - Niyazi Senan (14:20-15:40, Otaq 432)", "3)Kompüter arxitekturası-1 (seminar) - Vəlicanova Gülnarə (15:55-17:15, Otaq 432)"] },
+              2: ["2)XDİAK-3 (seminar) - Zehnallı A (14:20-15:40, Otaq 517)", "3)Proqramlaşdırmanın əsasları-2 (seminar) - Niyazi Sənan (14:20-15:40, Otaq 432)"], 
+              3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)"], 
+              4: ["1)Dövrlər nəzəriyyəsi (mühazirə) - Həsənov E (12:45-14:05, Otaq 431)", "2)XDİAK-3 (seminar) - Zeynallı A (14:20-15:40, Otaq 504)"], 
+              5: ["1)Dövrlər nəzəriyyəsi (seminar) - Həsənov E (12:45-14:05, Otaq 432)", "2)Verilənlər bazası sistemləri (seminar) - Niyazi Senan (14:20-15:40, Otaq 432)", "3)Kompüter arxitekturası-1 (seminar) - Vəlicanova Gülnarə (15:55-17:15, Otaq 432)"] },
     };
   
     function startOfDayCopy(d) {
