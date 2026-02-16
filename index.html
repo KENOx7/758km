@@ -1,138 +1,181 @@
 <!DOCTYPE html>
 <html lang="az">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cədvəl</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <link rel="icon" type="image/png" href="favicon.png">
-  
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Cədvəl">
-  
-  <meta name="msapplication-TileColor" content="#111827">
-  <meta name="msapplication-TileImage" content="favicon.png">
-  <meta name="theme-color" content="#111827">
-
-  <style>
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #111827; }
-    ::-webkit-scrollbar-thumb { background: #374151; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
-    ::selection { background-color: #3b82f6; color: white; }
-    .prose { max-width: 100%; }
-    .prose h3 { margin-top: 1em; margin-bottom: 0.5em;}
-    .prose ul { margin-top: 0.5em; }
-  </style>
-</head>
-<body class="bg-gray-900 text-gray-200 font-sans antialiased">
-
-  <header class="bg-gray-800 border-b-4 border-blue-500 text-white font-bold p-4 text-2xl text-center shadow-lg">
-    758/KM
-  </header>
-
-  <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
-    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">2-ci KURS</button>
-    <a href="https://kenox7.github.io/758kmqayb/" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-     Qayıblar
-    </a>
-  </nav>
-
-  <main class="container mx-auto px-4">
-    <div id="kurs2Section" class="content">
-      <h1 class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">2-ci KURS CƏDVƏLİ</h1>
-      <h3 id="weekType" class="text-xl text-center mb-6 text-yellow-400 font-semibold"></h3>
-      <div id="schedule_kurs2" class="max-w-2xl mx-auto"></div>
-    </div>
-  </main>
-  
-  <footer class="text-center p-8 mt-10 text-gray-400">
-    <p>@by Keno Akhmadov</p>
-  </footer>
-
-  <script>
-    const startDate = new Date("2024-02-24");
-  
-    const dersCedveliKurs2 = {
-      "alt": { 1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 204)", "2)Verilənlər bazası sistemləri (mühazirə) - Niyazi Sənan (14:20-15:40, Otaq 432)", "3)Proqramlaşdırmanın əsasları-2 (mühazirə) - Niyazi Sənan (15:55-17:15, Otaq 434)"], 
-              2: ["1)Ehtimal nəzəriyyəsi və statistika (seminar) - Məmmədov Mənsim (12:45-14:05, Otaq 517)", "2)XDİAK-3 (seminar) - Zehnallı A (14:20-15:40, Otaq 517)", "3)Verilənlər bazası sistemləri (mühazirə) - Niyazi Sənan (14:20-15:40, Otaq 432)"], 
-              3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)"], 
-              4: ["1)Dövrlər nəzəriyyəsi (mühazirə) - Həsənov Elçin (12:45-14:05, Otaq 431)", "2)XDİAK-3 (seminar) - Zeynallı Arzu (14:20-15:40, Otaq 504)"], 
-              5: ["1)Dövrlər nəzəriyyəsi (seminar) - Həsənov Elçin (12:45-14:05, Otaq 432)", "2)Verilənlər bazası sistemləri (seminar) - Niyazi Senan (14:20-15:40, Otaq 432)"] },
-      
-      "ust": { 1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 204)", "2)Verilənlər bazası sistemləri (mühazirə) - Niyazi Sənan (14:20-15:40, Otaq 432)", "3)Proqramlaşdırmanın əsasları-2 (mühazirə) - Niyazi Sənan (15:55-17:15, Otaq 434)"], 
-              2: ["2)XDİAK-3 (seminar) - Zehnallı A (14:20-15:40, Otaq 517)", "3)Proqramlaşdırmanın əsasları-2 (seminar) - Niyazi Sənan (14:20-15:40, Otaq 432)"], 
-              3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)"], 
-              4: ["1)Dövrlər nəzəriyyəsi (mühazirə) - Həsənov Elçin (12:45-14:05, Otaq 431)", "2)XDİAK-3 (seminar) - Zeynallı Arzu (14:20-15:40, Otaq 504)"], 
-              5: ["1)Dövrlər nəzəriyyəsi (seminar) - Həsənov Elçin (12:45-14:05, Otaq 432)", "2)Verilənlər bazası sistemləri (seminar) - Niyazi Senan (14:20-15:40, Otaq 432)", "3)Kompüter arxitekturası-1 (seminar) - Vəlicanova Gülnarə (15:55-17:15, Otaq 432)"] },
-    };
-  
-    function startOfDayCopy(d) {
-      const c = new Date(d);
-      c.setHours(0,0,0,0);
-      return c;
-    }
-  
-    function hefteniTap(date) {
-      const ref = startOfDayCopy(startDate);
-      const d = startOfDayCopy(date);
-      const diffMs = d.getTime() - ref.getTime();
-      const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
-      return (diffWeeks % 2 === 0) ? "alt" : "ust";
-    }
-  
-    function tarixFormatla(date) {
-      const gunler = ["Bazar", "1-ci Gün<br> Bazar ertəsi", "2-ci Gün<br> Çərşənbə axşamı", "3-cü Gün<br> Çərşənbə", "4-cü Gün<br> Cümə axşamı", "5-ci Gün<br> Cümə", "Şənbə"];
-      return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
-    }
-  
-    function dersleriGosterKurs2() {
-      let container = document.getElementById("schedule_kurs2");
-      container.innerHTML = "";
-      const bugun = new Date();
-      const bugunWeekType = hefteniTap(bugun);
-      document.getElementById("weekType").innerText = `Bu Həftə: ${bugunWeekType.toUpperCase()} Həftədir`;
-  
-      for (let i = 0; i < 7; i++) {
-        const tarix = new Date();
-        tarix.setDate(bugun.getDate() + i);
-        const tarihDay = startOfDayCopy(tarix);
-        const gun = tarihDay.getDay();
-  
-        if (gun > 0 && gun < 6) {
-          const haftaTipi = hefteniTap(tarihDay);
-          const derslerArr = (dersCedveliKurs2[haftaTipi] && dersCedveliKurs2[haftaTipi][gun]) ? dersCedveliKurs2[haftaTipi][gun] : null;
-          const dersler = derslerArr 
-            ? derslerArr.map(d => `<div class="bg-gray-700/50 p-3 rounded-lg mt-3">${d}</div>`).join("") 
-            : "<p class='mt-2 text-gray-400'>Dərs yoxdur</p>";
-  
-          const isToday = (startOfDayCopy(new Date()).getTime() === tarihDay.getTime());
-          container.innerHTML += `
-            <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border ${isToday ? 'border-blue-500 scale-105' : 'border-gray-700'} transition-transform'>
-              <div class="flex justify-between items-baseline">
-                <strong class="text-lg ${isToday ? 'text-blue-300' : 'text-gray-300'}">${tarixFormatla(tarihDay)}</strong>
-                <span class="text-sm text-yellow-300 font-semibold">${haftaTipi.toUpperCase()} həftə</span>
-              </div>
-              <div class="mt-1">${dersler}</div>
-            </div>`;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cədvəl - 758/KM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#111827">
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-      }
-    }
-  
-    document.addEventListener('DOMContentLoaded', () => {
-      dersleriGosterKurs2();
-    });
-  </script>
-    
+
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-200 antialiased font-sans">
+    <header class="bg-gray-800 border-b-4 border-blue-500 text-white font-bold p-4 text-2xl text-center shadow-lg">
+        758/KM</header>
+
+    <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
+        <button onclick="showSection('kurs2Section')"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">2-ci
+            KURS</button>
+        <button onclick="window.location.href='herkes.html'"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">Qayıblar</button>
+    </nav>
+
+    <main class="container mx-auto px-4">
+        <div id="loader" class="text-center py-10 hidden">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
+            <p class="mt-2 text-gray-400">Cədvəl yüklənir...</p>
+        </div>
+
+        <div id="kurs2Section" class="content">
+            <h1
+                class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                2-ci KURS CƏDVƏLİ</h1>
+            <h3 id="weekType" class="text-xl text-center mb-6 text-yellow-400 font-semibold"></h3>
+            <div id="schedule_kurs2" class="max-w-2xl mx-auto space-y-4"></div>
+
+
+    </main>
+
+    <footer class="text-center p-8 mt-10 text-gray-400">
+        <p>@by Kenan</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+        import { SystemManager } from "./firestore_manager.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAtQ_laoPhn_31RgUFp5hkHPzAcYJSH9_8",
+            authDomain: "davamiyyet-sistemi.firebaseapp.com",
+            databaseURL: "https://yorumlar-8f969-default-rtdb.firebaseio.com/",
+            projectId: "davamiyyet-sistemi",
+            storageBucket: "davamiyyet-sistemi.appspot.com",
+            messagingSenderId: "773549402059",
+            appId: "1:773549402059:web:25286906aa1d998041f84e",
+            measurementId: "G-M3Y8QZCM8C"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const rtdb = getDatabase(app);
+        const manager = new SystemManager(db);
+        const currentGroupId = "758_KM";
+        let currentSchedule = null;
+
+
+
+        async function init() {
+            const loader = document.getElementById('loader');
+            if (loader) loader.classList.remove('hidden');
+            try {
+                const semester = await manager.getActiveSemester();
+                if (semester) {
+                    currentSchedule = await manager.getGroupSchedule(semester.id, currentGroupId);
+                    renderScheduleKurs2();
+                } else {
+                    const el = document.getElementById('schedule_kurs2');
+                    if (el) el.innerHTML = "<p class='text-center text-gray-400'>Aktiv Semestr Yoxdur.</p>";
+                }
+            } catch (e) { console.error(e); } finally { if (loader) loader.classList.add('hidden'); }
+        }
+
+        const startDate = new Date("2024-02-24");
+        function startOfDayCopy(d) { const c = new Date(d); c.setHours(0, 0, 0, 0); return c; }
+        function hefteniTap(date) {
+            const ref = startOfDayCopy(startDate);
+            const d = startOfDayCopy(date);
+            const diffMs = d.getTime() - ref.getTime();
+            const diffWeeks = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7));
+            return (diffWeeks % 2 === 0) ? "alt" : "ust";
+        }
+        function tarihFormatla(date) {
+            const gunler = ["Bazar", "1-ci Gün<br> Bazar ertəsi", "2-ci Gün<br> Çərşənbə axşamı", "3-cü Gün<br> Çərşənbə", "4-cü Gün<br> Cümə axşamı", "5-ci Gün<br> Cümə", "Şənbə"];
+            return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
+        }
+
+        function renderScheduleKurs2() {
+            let container = document.getElementById("schedule_kurs2");
+            if (!container) return;
+            container.innerHTML = "";
+            const bugun = new Date();
+            const bugunWeekType = hefteniTap(bugun);
+            const wtEl = document.getElementById("weekType");
+            if (wtEl) wtEl.innerText = `Bu Həftə: ${bugunWeekType.toUpperCase()} Həftədir`;
+
+            for (let i = 0; i < 7; i++) {
+                const date = new Date();
+                date.setDate(bugun.getDate() + i);
+                const dayIndex = date.getDay();
+                if (dayIndex >= 1 && dayIndex <= 5) {
+                    const type = hefteniTap(date);
+                    const lessons = currentSchedule && currentSchedule[type] ? currentSchedule[type][dayIndex] : [];
+                    const isToday = i === 0;
+                    const lessonHtml = (lessons && lessons.length > 0)
+                        ? lessons.sort().map((l) => {
+                            let display = l;
+                            let slotNum = null;
+                            if (l.startsWith('{')) {
+                                const endIdx = l.indexOf('}');
+                                slotNum = parseInt(l.substring(1, endIdx));
+                                display = l.substring(endIdx + 1).trim();
+                            }
+                            const hasLegacyNumbering = /^\d+\)/.test(display);
+                            let numberPrefix = "";
+                            if (!hasLegacyNumbering && slotNum) {
+                                const mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
+                                numberPrefix = `${mappedNum}) `;
+                            }
+                            const finalStr = hasLegacyNumbering ? display : `${numberPrefix}${display}`;
+                            return `<div class="bg-gray-700/50 p-3 rounded-lg mt-3 text-sm md:text-base">${finalStr}</div>`;
+                        }).join('')
+                        : "<p class='mt-2 text-gray-400'>Dərs yoxdur</p>";
+                    container.innerHTML += `
+                        <div class='bg-gray-800 p-5 rounded-xl shadow-lg border ${isToday ? 'border-blue-500 ring-2 ring-blue-500/20 scale-105' : 'border-gray-700'} transition-all'>
+                            <div class="flex justify-between items-baseline mb-2">
+                                <strong class="text-lg ${isToday ? 'text-blue-300' : 'text-gray-200'}">${tarihFormatla(date)}</strong>
+                                <span class="text-xs font-mono px-2 py-1 rounded bg-gray-700 text-yellow-500">${type.toUpperCase()}</span>
+                            </div>
+                            <div class="space-y-2">${lessonHtml}</div>
+                        </div>`;
+                }
+            }
+        }
+
+        window.showSection = function (id) {
+            document.querySelectorAll('.content').forEach(c => c.classList.add('hidden'));
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('hidden');
+        };
+
+        document.addEventListener('DOMContentLoaded', () => { init(); });
+    </script>
 </body>
+
 </html>
-
-
-
