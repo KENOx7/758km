@@ -1,16 +1,21 @@
-const CACHE_NAME = 'cedvel-km-v1';
+const CACHE_NAME = 'cedvel-km-v2';
 const LOCAL_ASSETS = [
     './cedvel.html',
     './herkes.html',
     './firestore_manager.js',
     './site.webmanifest',
-    './favicon.png'
+    './favicon.png',
+    'https://cdn.tailwindcss.com',
+    'https://unpkg.com/@phosphor-icons/web'
 ];
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(LOCAL_ASSETS);
+            // Hər faylı tək-tək yükləyirik ki, 404 xətası yaranarsa bütün faza dayanmasın
+            return Promise.allSettled(
+                LOCAL_ASSETS.map(url => cache.add(url).catch(err => console.warn(`Cache failed for ${url}:`, err)))
+            );
         }).then(() => self.skipWaiting())
     );
 });
