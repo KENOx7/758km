@@ -1,7 +1,6 @@
 const CACHE_NAME = 'cedvel-km-v2';
 const LOCAL_ASSETS = [
     './index.html',
-    './herkes.html',
     './firestore_manager.js',
     './site.webmanifest',
     './favicon.png',
