@@ -3,73 +3,161 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cədvəl - 758/KM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="manifest" href="site.webmanifest">
-    <meta name="theme-color" content="#111827">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="758/KM">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a',
+                        darkCard: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Averta', 'Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+    </script>
     <style>
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1f2937;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #4b5563;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6b7280;
+        @font-face {
+            font-family: 'Averta';
+            src: local('Montserrat'), local('sans-serif');
         }
 
         body {
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: 'Averta', 'Montserrat', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        * {
+            transition-property: background-color, border-color, color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+
+        @keyframes pulse-custom {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .btn-pulse {
+            animation: pulse-custom 2s infinite;
         }
     </style>
 </head>
 
-<body class="bg-gray-900 text-gray-200 antialiased font-sans">
-    <header class="bg-gray-800 border-b-4 border-blue-500 text-white font-bold p-4 text-2xl text-center shadow-lg">
-        758/KM</header>
+<body
+    class="bg-slate-100 dark:bg-darkBg text-slate-800 dark:text-white antialiased font-sans transition-colors duration-300">
+
+    <header
+        class="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-darkBg/80 border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-extrabold p-4 text-2xl flex justify-between items-center shadow-sm">
+        <span>758/KM</span>
+        <button onclick="toggleDarkMode()" id="theme-toggle" title="Mövzunu dəyişdir"
+            class="relative w-12 h-12 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-95 transition-all overflow-hidden focus:outline-none">
+            <svg id="theme-toggle-light"
+                class="absolute w-6 h-6 transition-all duration-500 origin-center dark:-rotate-90 dark:opacity-0"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                </path>
+            </svg>
+            <svg id="theme-toggle-dark"
+                class="absolute w-6 h-6 transition-all duration-500 origin-center rotate-90 opacity-0 dark:rotate-0 dark:opacity-100"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+        </button>
+    </header>
 
     <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
         <button onclick="showSection('kurs2Section')"
-            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">2-ci
+            class="whitespace-nowrap bg-blue-600 text-white font-bold py-2.5 px-6 rounded-2xl shadow-lg shadow-blue-500/30 transition transform hover:scale-105 active:scale-95">2-ci
             KURS</button>
-        <button onclick="window.location.href='https://kenox7.github.io/758kmqayb/'"
-            class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">Qayıblar</button>
+        <button onclick="showSection('absencesSection')"
+            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Qayıblar</button>
+        <button onclick="showSection('gradesSection')"
+            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Qiymətlər</button>
     </nav>
 
     <main class="container mx-auto px-4">
         <div id="loader" class="text-center py-10 hidden">
             <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
-            <p class="mt-2 text-gray-400">Cədvəl yüklənir...</p>
+            <p class="mt-2 text-slate-500 dark:text-gray-400">Cədvəl yüklənir...</p>
         </div>
 
         <div id="kurs2Section" class="content hidden">
             <h1
-                class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
                 2-ci KURS CƏDVƏLİ</h1>
 
-            <!-- Week Navigation Controls -->
             <div class="flex flex-col items-center justify-center gap-3 mb-6">
-                <h3 id="weekType" class="text-2xl text-yellow-400 font-bold drop-shadow-md"></h3>
-                <div class="flex items-center gap-4 bg-gray-800 p-2 rounded-full shadow-lg border border-gray-700">
+                <h3 id="weekType" class="text-2xl text-yellow-400 font-bold drop-shadow-md text-center"></h3>
+
+                <div id="pwa-install-container" class="hidden mt-3 mb-3">
+                </div>
+
+                <div
+                    class="flex items-center gap-4 bg-white dark:bg-darkCard p-2 rounded-full shadow-sm border border-slate-100 dark:border-slate-800">
                     <button onclick="changeWeek(-1)"
-                        class="p-2 rounded-full hover:bg-gray-700 text-blue-400 transition hover:scale-110 active:scale-95">
+                        class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-blue-400 transition hover:scale-110 active:scale-95">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
                     </button>
-                    <span id="dateRange" class="text-gray-300 font-mono font-semibold min-w-[140px] text-center"></span>
+                    <span id="dateRange"
+                        class="text-slate-700 dark:text-slate-300 font-mono font-semibold min-w-[140px] text-center"></span>
                     <button onclick="changeWeek(1)"
-                        class="p-2 rounded-full hover:bg-gray-700 text-blue-400 transition hover:scale-110 active:scale-95">
+                        class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-blue-400 transition hover:scale-110 active:scale-95">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -77,21 +165,198 @@
                     </button>
                 </div>
                 <button onclick="resetToToday()"
-                    class="text-xs text-gray-500 hover:text-blue-400 underline decoration-dotted">Bugünə qayıt</button>
+                    class="text-xs text-slate-500 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 underline decoration-dotted">Bugünə
+                    qayıt</button>
             </div>
 
             <div id="schedule_kurs2" class="max-w-2xl mx-auto space-y-4 px-2"></div>
         </div>
+
+        <!-- YENİ: Qayıblar (Absences) Bölməsi -->
+        <div id="absencesSection" class="content hidden">
+            <h1
+                class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
+                QAYIBLAR</h1>
+
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- Identity Selection Box -->
+                <div
+                    class="bg-white dark:bg-darkCard p-4 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+                    <div class="flex items-center gap-3 w-full md:w-auto">
+                        <div class="p-3 bg-red-100 dark:bg-red-500/20 rounded-2xl text-red-500 dark:text-red-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 dark:text-gray-200">Sən kimsən?</h3>
+                            <p id="saved-absences-identity-text" class="text-xs text-slate-500 dark:text-gray-500">Seçim
+                                edilməyib</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                        <select id="student-absences-select"
+                            class="bg-slate-50 border border-slate-200 dark:bg-gray-700 dark:border-gray-600 text-slate-900 dark:text-white rounded-xl px-4 py-3 text-sm w-full sm:w-64 focus:ring-2 focus:ring-red-500 outline-none shadow-inner">
+                            <option value="">Tələbə seçin...</option>
+                        </select>
+                        <div class="flex gap-2 w-full md:w-auto">
+                            <button id="save-absences-identity-btn"
+                                class="flex-1 bg-red-600 hover:bg-red-500 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-colors shadow-lg shadow-red-500/30">Yadda
+                                saxla</button>
+                            <button onclick="window.scrollToStudent('absences')"
+                                class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-colors shadow-lg shadow-emerald-500/30">Tap</button>
+                            <button onclick="document.getElementById('ranking-modal').classList.remove('hidden')"
+                                class="flex items-center gap-1.5 bg-yellow-500 hover:bg-yellow-400 text-white px-4 py-3 rounded-xl text-sm font-bold shadow-lg shadow-yellow-400/20 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                Reytinq
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="todays-absences-container" class="hidden">
+                    <div
+                        class="bg-red-50 dark:bg-red-900/20 rounded-3xl border border-red-200 dark:border-red-500/30 overflow-hidden shadow-sm">
+                        <div class="p-4 border-b border-red-200 dark:border-red-500/20 bg-red-100 dark:bg-red-900/40">
+                            <h3 class="text-red-600 dark:text-red-400 font-bold flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                                Bu gün qayıb alanlar
+                            </h3>
+                        </div>
+                        <div id="todays-absences-list"
+                            class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop sticky table -->
+                <div id="abs-desktop-view"
+                    class="hidden md:block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div class="overflow-x-auto" style="max-height:65vh;overflow-y:auto">
+                        <table class="w-full" style="border-collapse:separate;border-spacing:0;min-width:600px">
+                            <thead id="abs-table-head"></thead>
+                            <tbody id="abs-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Mobile cards -->
+                <div id="student-absences-result" class="md:hidden space-y-4">
+                    <p
+                        class="text-center text-slate-500 dark:text-gray-400 py-10 border border-dashed border-slate-200 dark:border-slate-700 rounded-3xl">
+                        Məlumat yüklənir...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ranking Modal -->
+        <div id="ranking-modal"
+            class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+            <div
+                class="bg-white dark:bg-gray-800 border border-slate-200 dark:border-yellow-500/30 rounded-3xl shadow-2xl w-full max-w-md max-h-[80vh] flex flex-col overflow-hidden">
+                <div
+                    class="flex justify-between items-center p-5 border-b border-slate-100 dark:border-gray-700 bg-slate-50 dark:bg-gray-900/50">
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="p-2 bg-yellow-100 dark:bg-yellow-500/20 rounded-xl text-yellow-600 dark:text-yellow-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-extrabold text-slate-800 dark:text-white">Qayıb Reytinqi</h2>
+                    </div>
+                    <button onclick="document.getElementById('ranking-modal').classList.add('hidden')"
+                        class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 rounded-full hover:bg-slate-100 dark:hover:bg-gray-700 transition">&times;</button>
+                </div>
+                <div id="ranking-list-body"
+                    class="overflow-y-auto divide-y divide-slate-100 dark:divide-gray-700 bg-white dark:bg-gray-800 p-2">
+                </div>
+            </div>
+        </div>
+
+        <!-- Details Modal -->
+        <div id="details-modal"
+            class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+            <div
+                class="bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-3xl shadow-2xl w-full max-w-sm max-h-[80vh] flex flex-col overflow-hidden">
+                <div
+                    class="flex justify-between items-center p-5 border-b border-slate-100 dark:border-gray-700 bg-slate-50 dark:bg-gray-900/50">
+                    <h2 id="modal-title" class="text-lg font-bold text-slate-800 dark:text-white truncate">Detallar</h2>
+                    <button onclick="document.getElementById('details-modal').classList.add('hidden')"
+                        class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 rounded-full hover:bg-slate-100 dark:hover:bg-gray-700 transition">&times;</button>
+                </div>
+                <div id="modal-list-body"
+                    class="p-6 overflow-y-auto bg-white dark:bg-gray-800 text-slate-700 dark:text-gray-300">
+                </div>
+            </div>
+        </div>
+
+        <div id="gradesSection" class="content hidden">
+            <h1
+                class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
+                QİYMƏTLƏR</h1>
+
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- Identity Selection Box -->
+                <div
+                    class="bg-white dark:bg-darkCard p-4 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+                    <div class="flex items-center gap-3 w-full md:w-auto">
+                        <div class="p-3 bg-blue-100 dark:bg-blue-500/20 rounded-2xl text-blue-500 dark:text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 dark:text-gray-200">Sən kimsən?</h3>
+                            <p id="saved-grades-identity-text" class="text-xs text-slate-500 dark:text-gray-500">Seçim
+                                edilməyib</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                        <select id="student-grades-select"
+                            class="bg-slate-50 border border-slate-200 dark:bg-gray-700 dark:border-gray-600 text-slate-900 dark:text-white rounded-xl px-4 py-3 text-sm w-full sm:w-64 focus:ring-2 focus:ring-blue-500 outline-none shadow-inner">
+                            <option value="">Tələbə seçin...</option>
+                        </select>
+                        <div class="flex gap-2 w-full md:w-auto">
+                            <button id="save-grades-identity-btn"
+                                class="flex-1 bg-blue-600 hover:bg-blue-500 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-colors shadow-lg shadow-blue-500/30">Yadda
+                                saxla</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="student-grades-result" class="space-y-4">
+                    <p
+                        class="text-center text-slate-500 dark:text-gray-400 py-10 border border-dashed border-slate-200 dark:border-slate-700 rounded-3xl">
+                        Zəhmət olmasa tələbə seçin və ya Yadda Saxlayın.</p>
+                </div>
+            </div>
+        </div>
+
     </main>
 
-    <footer class="text-center p-8 mt-10 text-gray-400">
+    <footer class="text-center p-8 mt-10 text-slate-500 dark:text-gray-400">
         <p>@by Kenan</p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+        import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { SystemManager } from "./firestore_manager.js";
 
         const firebaseConfig = {
@@ -107,17 +372,467 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const rtdb = getDatabase(app);
         const manager = new SystemManager(db);
         const currentGroupId = "758_KM";
         let currentSchedule = null;
         let viewOffset = 0;
+        let windowActiveSemesterId = null;
+
+        // --- SAAT ZONASI DÜZƏLİŞİ (UTC+4 Sabit) ---
+        function getBakuDate() {
+            const d = new Date();
+            const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            return new Date(utc + (3600000 * 4));
+        }
+
+        // GRADES LOGIC
+        let currentGrades = [];
+        let dynamicSubjects = [];
+        let staticStudents = ["Kərimov Kənan Süleyman", "Cahangirov Nicat Rövşən", "Laləyev Əli Nazim", "Əli Rza Sitarə Elşad", "Babayeva Səbinə Səməd", "Mehdiyev Ayxan Ceyhun", "Mirhacıyev Miryunis Çingiz", "Məlikov Əlabbas Kamran", "İsbatov Azər Ruslan", "Ocaqverdiyev Nihad Mehdi", "Qocayev İbrahim Ceyhun", "Həsənova Gülay Emil", "Bayramov Vüqar Şahbaz", "Rizayeva Gülnarə Əlifağa", "Gülüzadə Rəşad Elxan", "Cəfərli Nurcamal Tofiq", "Ağazadə Cavid Ramil", "Şəmşiyev Rəvan Zabil", "Zamanov Niyazi Əliçoban", "Diniyeva Səda Tofiq", "Nurməhəmmədov Ehtiram Akif", "Sarıyev Rəvan Vasif", "Babayev Şamil Ruslan", "Yadigarov Şamil Faiq", "Yusifov Rəşid Fikrət", "Abdullazadə Taryel Elçim", "Adıgözəlova Fidan Rövşən"];
+
+        const studentSelect = document.getElementById('student-grades-select');
+        const saveIdentityBtn = document.getElementById('save-grades-identity-btn');
+        const identityText = document.getElementById('saved-grades-identity-text');
+
+        async function loadGradesInitialData() {
+            if (!windowActiveSemesterId) return;
+
+            // Fetch dynamic subjects for this semester and group
+            try {
+                const subRes = await manager.getGroupSubjects(windowActiveSemesterId, currentGroupId);
+                dynamicSubjects = subRes.subjects || [];
+            } catch (e) { console.error("Could not fetch subjects", e); }
+
+            // Populate students dropdown
+            let dbStudents = [];
+            try {
+                dbStudents = await manager.getAllStudents(currentGroupId);
+            } catch (e) { console.error("Could not fetch students", e); }
+
+            const list = dbStudents.length > 0 ? dbStudents : staticStudents;
+            list.sort().forEach(s => {
+                studentSelect.innerHTML += `<option value="${s}">${s}</option>`;
+            });
+
+            const savedStudent = localStorage.getItem(`savedIdentity_${currentGroupId}_km`);
+            if (savedStudent && list.includes(savedStudent)) {
+                studentSelect.value = savedStudent;
+                identityText.innerHTML = `<span class="text-green-500 font-bold">${savedStudent}</span>`;
+            }
+
+            const qGrades = query(collection(db, "grades_log"), orderBy("timestamp", "desc"));
+            onSnapshot(qGrades, (snapshot) => {
+                currentGrades = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data.groupId !== currentGroupId) return;
+                    currentGrades.push(data);
+                });
+                renderStudentGrades();
+            });
+        }
+
+        saveIdentityBtn.addEventListener('click', () => {
+            if (studentSelect.value) {
+                localStorage.setItem(`savedIdentity_${currentGroupId}_km`, studentSelect.value);
+                identityText.innerHTML = `<span class="text-green-500 font-bold">${studentSelect.value}</span>`;
+                renderStudentGrades();
+            } else {
+                localStorage.removeItem(`savedIdentity_${currentGroupId}_km`);
+                identityText.textContent = "Seçim edilməyib";
+                renderStudentGrades();
+            }
+        });
+
+        studentSelect.addEventListener('change', () => {
+            renderStudentGrades();
+        });
+
+        window.scrollToStudent = function (type) {
+            const selectEl = type === 'absences' ? absStudentSelect : studentSelect;
+            const studentName = selectEl.value;
+            if (!studentName) {
+                alert("Zəhmət olmasa, əvvəlcə tələbə seçin.");
+                return;
+            }
+
+            if (type === 'grades') {
+                const gradesDiv = document.getElementById('student-grades-result');
+                if (gradesDiv) {
+                    const yOffset = -120;
+                    const y = gradesDiv.getBoundingClientRect().top + window.scrollY + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+                return;
+            }
+
+            // Search td for desktop, h3 for mobile
+            const cells = [...document.querySelectorAll('td'), ...document.querySelectorAll('h3')];
+            for (let cell of cells) {
+                if (cell.textContent.trim() === studentName) {
+                    // Check if element is visible (since tailwind hidden duplicates exist)
+                    if (cell.offsetParent !== null) {
+                        const yOffset = -150; // offset for sticky header
+                        const y = cell.getBoundingClientRect().top + window.scrollY + yOffset;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+
+                        const elToHighlight = cell.tagName === 'H3' ? (cell.closest('.border-slate-100') || cell.parentElement) : cell;
+                        const originalBg = elToHighlight.style.backgroundColor;
+                        elToHighlight.style.backgroundColor = '#fde047'; // yellow-300
+                        elToHighlight.style.transition = 'background-color 1s ease';
+                        setTimeout(() => {
+                            elToHighlight.style.backgroundColor = originalBg;
+                        }, 2000);
+                        return;
+                    }
+                }
+            }
+            alert("Tələbə cədvəldə tapılmadı.");
+        };
+
+        window.renderStudentGrades = renderStudentGrades;
+        function renderStudentGrades() {
+            const resultDiv = document.getElementById('student-grades-result');
+            if (!resultDiv) return;
+
+            const selectedStudent = studentSelect.value;
+            if (!selectedStudent) {
+                resultDiv.innerHTML = '<p class="text-center text-slate-500 dark:text-gray-400 py-10 border border-dashed border-slate-200 dark:border-slate-700 rounded-3xl">Zəhmət olmasa tələbə seçin və ya Yadda Saxlayın.</p>';
+                return;
+            }
+
+            let html = '';
+            const studentRecords = currentGrades.filter(g => g.studentName === selectedStudent && g.semesterId === windowActiveSemesterId);
+
+            const subjectMap = {};
+            dynamicSubjects.forEach(s => subjectMap[s] = []);
+
+            studentRecords.forEach(rec => {
+                // Ignore grades for subjects not in dynamicSubjects just in case
+                if (subjectMap[rec.subject] !== undefined) {
+                    subjectMap[rec.subject].push(rec.grade);
+                } else {
+                    // If a grade exists for a subject not dynamically registered, show it anyway
+                    subjectMap[rec.subject] = [rec.grade];
+                }
+            });
+
+            for (const [subject, grades] of Object.entries(subjectMap)) {
+                if (grades.length === 0) {
+                    html += `
+                    <div class="bg-slate-50 dark:bg-slate-800/40 p-5 rounded-3xl border border-dashed border-slate-200 dark:border-slate-700 flex flex-col md:flex-row justify-between md:items-center gap-4 transition-all opacity-70">
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-600 dark:text-slate-400">${subject}</h3>
+                            <p class="text-sm text-slate-400 dark:text-gray-500 mt-2">Heç bir qiymət daxil edilməyib.</p>
+                        </div>
+                        <div class="bg-slate-100 dark:bg-slate-900/50 py-3 px-6 rounded-2xl text-center min-w-[120px] border border-slate-200 dark:border-slate-800/50">
+                            <span class="block text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-widest font-bold mb-1">YEKUN</span>
+                            <span class="text-2xl font-extrabold text-slate-400 dark:text-gray-600">-</span>
+                        </div>
+                    </div>`;
+                    continue;
+                }
+
+                // Calculation rule: Math.round((sum / count) * 2)
+                const sum = grades.reduce((a, b) => a + Number(b), 0);
+                const finalScore = Math.round((sum / grades.length) * 2);
+
+                const scoreColor = finalScore >= 51 ? 'text-green-500' : 'text-red-500';
+
+                const minGradesWarning = grades.length < 3
+                    ? `<p class="text-xs text-orange-500 dark:text-orange-400 mt-1.5 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg> Minimum 3 qiymət olmalıdır (${grades.length}/3)</p>`
+                    : '';
+
+                html += `
+                <div class="bg-white dark:bg-darkCard p-5 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col md:flex-row justify-between md:items-center gap-4 transition-all hover:shadow-md hover:-translate-y-1">
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200">${subject}</h3>
+                        <p class="text-sm text-slate-500 dark:text-gray-400 mt-2">Alınan qiymətlər: <strong class="text-blue-500 dark:text-blue-400">${grades.join(', ')}</strong></p>
+                        ${minGradesWarning}
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 py-3 px-6 rounded-2xl text-center min-w-[120px] border border-slate-100 dark:border-slate-800/50">
+                        <span class="block text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-widest font-bold mb-1">YEKUN (S/C)*2</span>
+                        <span class="text-3xl font-extrabold ${scoreColor}">${finalScore}</span>
+                    </div>
+                </div>`;
+            }
+
+            resultDiv.innerHTML = html;
+        }
+
+        window.showSection = function (id) {
+            document.querySelectorAll('.content').forEach(c => c.classList.add('hidden'));
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('hidden');
+        };
+
+        // ===== QAYIBLAR (ABSENCES) MƏNTIQİ =====
+        let absenceStudentsList = [];
+        let absSubjectsList = [];
+        let allAbsences = [];
+        let absProcessedData = {};
+        let absSubjectLimits = {};
+
+        const absStudentSelect = document.getElementById('student-absences-select');
+        const saveAbsencesIdentityBtn = document.getElementById('save-absences-identity-btn');
+        const absIdentityText = document.getElementById('saved-absences-identity-text');
+
+        async function loadAbsencesData() {
+            if (!windowActiveSemesterId) return;
+
+            // Load students
+            const dbStudents = await manager.getAllStudents(currentGroupId).catch(() => []);
+            const fallback = staticStudents;
+            absenceStudentsList = dbStudents.length > 0 ? dbStudents : fallback;
+
+            // Populate dropdown
+            absStudentSelect.innerHTML = '<option value="">Tələbə seçin...</option>';
+            [...absenceStudentsList].sort().forEach(s => {
+                absStudentSelect.innerHTML += `<option value="${s}">${s}</option>`;
+            });
+
+            // Restore saved identity
+            const savedAbs = localStorage.getItem(`savedAbsIdentity_${currentGroupId}_km`);
+            if (savedAbs && absenceStudentsList.includes(savedAbs)) {
+                absStudentSelect.value = savedAbs;
+                absIdentityText.innerHTML = `<span class="text-red-500 font-bold">${savedAbs}</span>`;
+            }
+
+            // Load subjects
+            try {
+                const subRes = await manager.getGroupSubjects(windowActiveSemesterId, currentGroupId);
+                absSubjectsList = subRes.subjects || [];
+                absSubjectLimits = subRes.limits || {};
+            } catch (e) {
+                console.error("Could not fetch subjects for absences", e);
+                absSubjectsList = [];
+                absSubjectLimits = {};
+                renderAbsences(); // Render UI even if subjects fail to load
+            }
+
+
+            // Real-time absences listener
+            const q = query(collection(db, "absences_log"), where("semesterId", "==", windowActiveSemesterId));
+            onSnapshot(q, (snapshot) => {
+                allAbsences = snapshot.docs
+                    .map(d => ({ id: d.id, ...d.data() }))
+                    .filter(d => {
+                        if (d.groupId && d.groupId !== currentGroupId) return false;
+                        if (!d.groupId && !absenceStudentsList.includes(d.studentName)) return false;
+                        return true;
+                    });
+                absProcessData();
+                renderAbsences();
+                renderAbsenceRanking();
+                checkTodaysAbsences();
+            }, (error) => {
+                console.error("Absences onSnapshot error:", error);
+                renderAbsences(); // Render UI on error to show a message or empty state
+            });
+        }
+
+        function absProcessData() {
+            absProcessedData = {};
+            absenceStudentsList.forEach(st => {
+                absProcessedData[st] = { total: 0, subjects: {} };
+                absSubjectsList.forEach(sub => absProcessedData[st].subjects[sub] = 0);
+            });
+            allAbsences.forEach(abs => {
+                const st = abs.studentName;
+                if (!absProcessedData[st]) {
+                    absProcessedData[st] = { total: 0, subjects: {} };
+                    absSubjectsList.forEach(sub => absProcessedData[st].subjects[sub] = 0);
+                }
+                if (absProcessedData[st].subjects[abs.subject] !== undefined) {
+                    absProcessedData[st].subjects[abs.subject]++;
+                    absProcessedData[st].total++;
+                } else {
+                    absProcessedData[st].subjects[abs.subject] = 1;
+                    absProcessedData[st].total++;
+                }
+            });
+        }
+
+        // Global array — safe index-based onclick, avoids quote issues with Azerbaijani names
+        window._absStudentsSorted = [];
+        window._absSelectStudent = function (idx) {
+            const st = window._absStudentsSorted[idx];
+            if (!st) return;
+            absStudentSelect.value = st;
+            absIdentityText.innerHTML = `<span class="text-red-500 font-bold">${st}</span>`;
+            renderAbsences();
+        };
+        window._absShowDetails = function (stIdx, subIdx) {
+            const st = window._absStudentsSorted[stIdx];
+            const allSubs = [...absSubjectsList];
+            allAbsences.filter(a => a.studentName === st).forEach(a => {
+                if (!allSubs.includes(a.subject)) allSubs.push(a.subject);
+            });
+            const sub = allSubs[subIdx];
+            if (st && sub) showAbsenceDetails(st, sub);
+        };
+
+        window.renderAbsences = renderAbsences;
+        function renderAbsences() {
+            const mobileDiv = document.getElementById('student-absences-result');
+            const tableHead = document.getElementById('abs-table-head');
+            const tableBody = document.getElementById('abs-table-body');
+            if (!mobileDiv || !tableHead || !tableBody) return;
+
+            const selected = absStudentSelect.value;
+            const getLimit = (sub) => absSubjectLimits[sub] || 7;
+
+            if (absenceStudentsList.length === 0) {
+                mobileDiv.innerHTML = '<p class="text-center text-slate-500 dark:text-gray-400 py-10 border border-dashed border-slate-200 dark:border-slate-700 rounded-3xl">Məlumat yüklənir...</p>';
+                tableHead.innerHTML = '';
+                tableBody.innerHTML = '';
+                return;
+            }
+
+            window._absStudentsSorted = [...absenceStudentsList].sort();
+
+            // Collect all subjects across all absences + from dynamic list
+            const allSubs = [...absSubjectsList];
+            allAbsences.forEach(a => { if (!allSubs.includes(a.subject)) allSubs.push(a.subject); });
+
+            // ===== DESKTOP TABLE =====
+            // Header
+            tableHead.innerHTML = `<tr>
+                <th style="position:sticky;left:0;top:0;z-index:30;" class="bg-slate-100 dark:bg-slate-900 shadow-[inset_-1px_-1px_0_theme(colors.slate.200)] dark:shadow-[inset_-1px_-1px_0_theme(colors.slate.700)] text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider py-4 px-4 text-left whitespace-nowrap min-w-[200px]">AD SOYAD</th>
+                ${allSubs.map(sub => `<th class="bg-slate-100 dark:bg-slate-900 shadow-[inset_0_-1px_0_theme(colors.slate.200)] dark:shadow-[inset_0_-1px_0_theme(colors.slate.700)] text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider py-3 px-4 text-center min-w-[160px]" style="position:sticky;top:0;z-index:20">
+                    <div class="text-slate-700 dark:text-slate-200 font-semibold normal-case text-[12px] leading-tight">${sub}</div>
+                    <div class="text-yellow-500 text-[10px] font-mono mt-0.5">LİMİT: ${getLimit(sub)}</div>
+                </th>`).join('')}
+            </tr>`;
+
+            // Rows
+            let tbodyHtml = '';
+            window._absStudentsSorted.forEach((st, stIdx) => {
+                const data = absProcessedData[st] || { total: 0, subjects: {} };
+                const isHighlighted = selected === st;
+                tbodyHtml += `<tr class="border-b border-slate-100 dark:border-slate-800 transition-colors group">
+                    <td style="position:sticky;left:0;z-index:10;" class="${isHighlighted ? 'bg-red-50 dark:bg-red-900/40 text-red-500' : 'bg-white dark:bg-darkCard group-hover:bg-slate-50 dark:group-hover:bg-slate-800/50 text-slate-700 dark:text-slate-200'} py-3 px-4 font-semibold text-sm whitespace-nowrap shadow-[inset_-1px_0_0_theme(colors.slate.100)] dark:shadow-[inset_-1px_0_0_theme(colors.slate.800)] cursor-pointer hover:text-red-500 transition-colors" onclick="window._absSelectStudent(${stIdx})">${st}</td>
+                    ${allSubs.map((sub, subIdx) => {
+                    const count = data.subjects[sub] || 0;
+                    const limit = getLimit(sub);
+                    if (count === 0) return `<td class="py-3 px-2 text-center text-slate-300 dark:text-slate-600 text-lg">–</td>`;
+                    let cls = 'text-yellow-500 font-bold text-lg';
+                    let extra = '';
+                    if (count >= limit) { cls = 'text-red-500 font-extrabold text-lg animate-pulse'; extra = '<div class="text-[8px] text-red-500 font-bold leading-none">KƏSİLDİ</div>'; }
+                    else if (count >= limit - 1) cls = 'text-red-400 font-bold text-lg';
+                    else if (count >= limit - 2) cls = 'text-orange-400 font-bold text-lg';
+                    return `<td class="py-3 px-2 text-center cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" onclick="window._absShowDetails(${stIdx},${subIdx})"><span class="${cls}">${count}</span>${extra}</td>`;
+                }).join('')}
+                </tr>`;
+            });
+            tableBody.innerHTML = tbodyHtml;
+
+            // ===== MOBILE CARDS =====
+            mobileDiv.className = 'md:hidden space-y-4';
+            let mobileHtml = '';
+            window._absStudentsSorted.forEach((st, stIdx) => {
+                const data = absProcessedData[st] || { total: 0, subjects: {} };
+                const isClean = data.total === 0;
+                let subHtml = '';
+                allSubs.forEach((sub, subIdx) => {
+                    const count = data.subjects[sub] || 0;
+                    if (count === 0) return;
+                    const limit = getLimit(sub);
+                    const pct = Math.min((count / limit) * 100, 100);
+                    let barColor = 'bg-yellow-400', textColor = 'text-yellow-500', badge = '';
+                    if (count >= limit) { barColor = 'bg-red-500'; textColor = 'text-red-500'; badge = '<span class="text-[9px] font-bold text-red-500 ml-1">KƏSİLDİ</span>'; }
+                    else if (count >= limit - 1) { barColor = 'bg-red-400'; textColor = 'text-red-400'; }
+                    else if (count >= limit - 2) { barColor = 'bg-orange-400'; textColor = 'text-orange-400'; }
+                    subHtml += `<div class="cursor-pointer" onclick="window._absShowDetails(${stIdx},${subIdx})">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-600 dark:text-slate-300 font-medium">${sub}${badge}</span>
+                            <span class="${textColor} font-bold">${count}/${limit}</span>
+                        </div>
+                        <div class="h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div class="${barColor} h-1.5 rounded-full" style="width:${pct}%"></div>
+                        </div>
+                    </div>`;
+                });
+                if (isClean) subHtml = `<div class="text-center text-green-500 text-sm bg-green-50 dark:bg-green-500/10 py-2 rounded-2xl">Qayıb yoxdur ✅</div>`;
+                const highlight = selected === st ? 'ring-2 ring-red-400' : '';
+                mobileHtml += `<div class="bg-white dark:bg-darkCard p-5 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm ${highlight}">
+                    <div class="flex justify-between items-center mb-4 cursor-pointer" onclick="window._absSelectStudent(${stIdx})">
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100">${st}</h3>
+                        <span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold px-3 py-1 rounded-full">${data.total} qayıb</span>
+                    </div>
+                    <div class="space-y-3">${subHtml}</div>
+                </div>`;
+            });
+            mobileDiv.innerHTML = mobileHtml;
+        }
+
+        function renderAbsenceRanking() {
+            const rankBody = document.getElementById('ranking-list-body');
+            if (!rankBody) return;
+            const sorted = [...absenceStudentsList].sort((a, b) => (absProcessedData[b]?.total || 0) - (absProcessedData[a]?.total || 0));
+            let html = '';
+            sorted.forEach((st, idx) => {
+                const total = absProcessedData[st]?.total || 0;
+                if (total === 0) return;
+                let icon = idx + 1;
+                let rankClass = 'bg-slate-100 dark:bg-gray-700 text-slate-700 dark:text-gray-300';
+                if (idx === 0) { rankClass = 'bg-yellow-400 text-white'; icon = '&#x1F451;'; }
+                else if (idx === 1) { rankClass = 'bg-slate-300 dark:bg-slate-500 text-slate-800 dark:text-white'; }
+                else if (idx === 2) { rankClass = 'bg-amber-600 text-white'; }
+                html += `<div class="flex justify-between items-center p-3 last:border-0">
+                    <div class="flex items-center gap-3"><div class="w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm ${rankClass}">${icon}</div>
+                    <span class="text-slate-700 dark:text-gray-200 font-medium">${st}</span></div>
+                    <span class="font-extrabold text-lg text-slate-800 dark:text-white">${total}</span></div>`;
+            });
+            rankBody.innerHTML = html || '<div class="p-6 text-center text-slate-400">Qayıb yoxdur.</div>';
+        }
+
+        function checkTodaysAbsences() {
+            const todayStr = getBakuDate().toISOString().split('T')[0];
+            const todayList = allAbsences.filter(a => a.date === todayStr);
+            const container = document.getElementById('todays-absences-container');
+            const list = document.getElementById('todays-absences-list');
+            if (!container || !list) return;
+            if (todayList.length > 0) {
+                const grouped = {};
+                todayList.forEach(x => { if (!grouped[x.studentName]) grouped[x.studentName] = []; grouped[x.studentName].push(x.subject); });
+                list.innerHTML = Object.keys(grouped).map(st => `<div class="bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 p-3 rounded-2xl"><div class="font-bold text-red-700 dark:text-red-300 text-sm mb-1">${st}</div><div class="flex flex-wrap gap-1">${grouped[st].map(s => `<span class="text-[10px] bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-300 px-2 py-0.5 rounded-full">${s}</span>`).join('')}</div></div>`).join('');
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
+        }
+
+        window.showAbsenceDetails = (student, subject) => {
+            const modal = document.getElementById('details-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-list-body');
+            modalTitle.textContent = `${student} — ${subject}`;
+            const dates = allAbsences.filter(a => a.studentName === student && a.subject === subject).map(a => a.date).sort();
+            modalBody.innerHTML = `<div class="grid grid-cols-2 gap-2">${dates.map(d => `<div class="bg-slate-50 dark:bg-gray-700 p-3 rounded-xl text-center text-sm font-medium">${d}</div>`).join('')}</div>` || '<p class="text-center text-slate-400">Məlumat yoxdur</p>';
+            modal.classList.remove('hidden');
+        };
+
+        saveAbsencesIdentityBtn.addEventListener('click', () => {
+            const val = absStudentSelect.value;
+            if (val) {
+                localStorage.setItem(`savedAbsIdentity_${currentGroupId}_km`, val);
+                absIdentityText.innerHTML = `<span class="text-red-500 font-bold">${val}</span>`;
+                renderAbsences();
+            } else {
+                localStorage.removeItem(`savedAbsIdentity_${currentGroupId}_km`);
+                absIdentityText.textContent = 'Seçim edilməyib';
+                renderAbsences();
+            }
+        });
+
+        absStudentSelect.addEventListener('change', renderAbsences);
+        // ===== QAYIBLAR SON =====
 
         async function init() {
             const loader = document.getElementById('loader');
             if (loader) loader.classList.remove('hidden');
 
-            // 1. Load from localStorage first for offline support
             const cachedScheduleStr = localStorage.getItem(`schedule_${currentGroupId}_km`);
             const cachedSemesterStr = localStorage.getItem('activeSemester_km');
 
@@ -134,10 +849,10 @@
                 }
             }
 
-            // 2. Fetch fresh data in the background
             try {
                 const semester = await manager.getActiveSemester();
                 if (semester) {
+                    windowActiveSemesterId = semester.id;
                     const newSchedule = await manager.getGroupSchedule(semester.id, currentGroupId);
 
                     if (JSON.stringify(newSchedule) !== cachedScheduleStr || JSON.stringify(semester) !== cachedSemesterStr) {
@@ -148,20 +863,22 @@
                     }
                 } else {
                     const el = document.getElementById('schedule_kurs2');
-                    if (el) el.innerHTML = "<p class='text-center text-gray-400'>Aktiv Semestr Yoxdur.</p>";
+                    if (el) el.innerHTML = "<p class='text-center text-slate-500 dark:text-gray-400'>Aktiv Semestr Yoxdur.</p>";
                     localStorage.removeItem('activeSemester_km');
                     localStorage.removeItem(`schedule_${currentGroupId}_km`);
                 }
             } catch (e) {
                 console.error("Firebase fetch error (Offline ola bilər):", e);
             } finally {
+                loadGradesInitialData();
+                loadAbsencesData();
+
                 if (loader) loader.classList.add('hidden');
                 const section = document.getElementById('kurs2Section');
                 if (section) section.classList.remove('hidden');
             }
 
-            // Weekend check
-            const today = new Date();
+            const today = getBakuDate();
             if (today.getDay() === 0 || today.getDay() === 6) {
                 if (viewOffset === 0) {
                     viewOffset = 1;
@@ -170,8 +887,7 @@
             }
         }
 
-        // --- Helpers ---
-        const startDate = new Date("2026-02-16"); // Updated start date
+        const startDate = new Date("2026-02-16T00:00:00+04:00");
 
         function startOfDayCopy(d) {
             const c = new Date(d);
@@ -183,9 +899,8 @@
             const ref = startOfDayCopy(startDate);
             const d = startOfDayCopy(date);
             const diffMs = d.getTime() - ref.getTime();
-            // Calculate week number (1-based)
             const diffWeeks = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7)) + 1;
-            const type = (diffWeeks % 2 === 0) ? "alt" : "ust"; // Odd=UST, Even=ALT
+            const type = (diffWeeks % 2 === 0) ? "alt" : "ust";
             return { type, number: diffWeeks > 0 ? diffWeeks : 1 };
         }
 
@@ -194,7 +909,6 @@
             return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
         }
 
-        // Standard Lesson Times (Start - End)
         const lessonSlots = [
             { start: "09:00", end: "10:20" },
             { start: "10:30", end: "11:50" },
@@ -206,21 +920,21 @@
         function isLessonActive(slotIndex) {
             if (slotIndex < 1 || slotIndex > 5) return false;
 
-            const now = new Date();
+            const now = getBakuDate();
             const slot = lessonSlots[slotIndex - 1];
 
             const [sH, sM] = slot.start.split(':');
             const [eH, eM] = slot.end.split(':');
 
-            const startTime = new Date(); startTime.setHours(sH, sM, 0);
-            const endTime = new Date(); endTime.setHours(eH, eM, 0);
+            const startTime = getBakuDate();
+            startTime.setHours(parseInt(sH), parseInt(sM), 0, 0);
+
+            const endTime = getBakuDate();
+            endTime.setHours(parseInt(eH), parseInt(eM), 0, 0);
 
             return now >= startTime && now <= endTime;
         }
 
-        // --- Render Logic ---
-
-        // Navigation Functions
         window.changeWeek = (delta) => {
             viewOffset += delta;
             renderScheduleKurs2();
@@ -231,7 +945,6 @@
             renderScheduleKurs2();
         };
 
-        // Copy Function
         window.copyDaySchedule = (dateStr, lessonsArr) => {
             if (!lessonsArr || lessonsArr.length === 0) return;
             const textLines = lessonsArr.map(l => {
@@ -239,9 +952,12 @@
                 if (l.startsWith('{')) clean = l.substring(l.indexOf('}') + 1).trim();
                 return `• ${clean}`;
             }).join('\n');
+
             const header = `📅 *${dateStr}* dərsləri:\n`;
             const footer = `\n____________________\n758/KM Cədvəl`;
+
             const fullText = header + textLines + footer;
+
             navigator.clipboard.writeText(fullText).then(() => {
                 alert("Cədvəl kopyalandı! WhatsApp-da paylaşa bilərsiniz.");
             }).catch(err => {
@@ -255,30 +971,26 @@
 
             container.innerHTML = "";
 
-            // Calculate base date (Today + offset * 7)
-            const today = new Date();
-            const viewDate = new Date();
+            const today = getBakuDate();
+            const viewDate = getBakuDate();
             viewDate.setDate(today.getDate() + (viewOffset * 7));
 
-            const dayOfWeek = viewDate.getDay(); // 0 (Sun) - 6 (Sat)
-            const diffToMon = (dayOfWeek + 6) % 7; // How many days to subtract to get Monday
+            const dayOfWeek = viewDate.getDay();
+            const diffToMon = (dayOfWeek + 6) % 7;
             const mondayDate = new Date(viewDate);
             mondayDate.setDate(viewDate.getDate() - diffToMon);
 
-            // Determine Week Type based on Monday
             const weekInfo = hefteniTap(mondayDate);
             const weekType = weekInfo.type;
 
-            // Update Headers
             const wtEl = document.getElementById("weekType");
             if (wtEl) wtEl.innerHTML = `
                 <div class="flex flex-col items-center">
-                    <span class="text-3xl font-bold ${weekType === 'alt' ? 'text-yellow-400' : 'text-green-400'} uppercase drop-shadow-sm">${weekType === 'alt' ? '🟡 ALT HƏFTƏ' : '🟢 ÜST HƏFTƏ'}</span>
-                    <span class="text-sm text-gray-400 font-mono tracking-widest mt-1">SEMESTRİN ${weekInfo.number}-Cİ HƏFTƏSİ</span>
+                    <span class="text-3xl font-bold ${weekType === 'alt' ? 'text-yellow-400' : 'text-green-400'} uppercase drop-shadow-sm">${weekType === 'alt' ? 'ALT HƏFTƏ' : 'ÜST HƏFTƏ'}</span>
+                    <span class="text-sm text-slate-500 dark:text-gray-400 font-mono tracking-widest mt-1">SEMESTRİN ${weekInfo.number}-Cİ HƏFTƏSİ</span>
                 </div>
             `;
 
-            // Date Range String (Custom Format)
             const sunDate = new Date(mondayDate);
             sunDate.setDate(mondayDate.getDate() + 6);
 
@@ -291,9 +1003,8 @@
             for (let i = 0; i < 7; i++) {
                 const date = new Date(mondayDate);
                 date.setDate(mondayDate.getDate() + i);
-                const loopDayIndex = date.getDay(); // 0-6
+                const loopDayIndex = date.getDay();
 
-                // Only render Mon(1) to Fri(5)
                 if (loopDayIndex >= 1 && loopDayIndex <= 5) {
                     const loopWeekInfo = hefteniTap(date);
                     const loopWeekType = loopWeekInfo.type;
@@ -314,8 +1025,9 @@
 
                             const hasLegacyNumbering = /^\d+\)/.test(display);
                             let numberPrefix = "";
+                            let mappedNum = slotNum;
                             if (!hasLegacyNumbering && slotNum) {
-                                const mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
+                                mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
                                 numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${mappedNum}</span>`;
                             } else if (hasLegacyNumbering) {
                                 const parts = display.match(/^(\d+\))(.*)/);
@@ -325,57 +1037,53 @@
                                 }
                             }
 
-                            // 1. SMART BADGES
                             let typeBadge = "";
                             if (display.toLowerCase().includes("mühazirə")) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-900/50 text-purple-300 border border-purple-700/50 uppercase tracking-wider ml-2">Mühazirə</span>`;
+                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 uppercase tracking-wider ml-2">Mühazirə</span>`;
                                 display = display.replace(/\(mühazirə\)/i, '').trim();
                             } else if (display.toLowerCase().includes("seminar")) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-900/50 text-orange-300 border border-orange-700/50 uppercase tracking-wider ml-2">Seminar</span>`;
+                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20 uppercase tracking-wider ml-2">Seminar</span>`;
                                 display = display.replace(/\(seminar\)/i, '').trim();
                             }
 
-                            // 2. TEACHER PARSING
                             let content = display;
                             if (display.includes(' - ')) {
                                 const parts = display.split(' - ');
                                 const subj = parts[0].trim();
                                 const teach = parts.slice(1).join(' - ').trim();
-                                content = `<span class="text-gray-100 font-semibold text-base">${subj}</span>${typeBadge}<span class="block text-sm text-gray-400 mt-1 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> ${teach}</span>`;
+                                content = `<span class="text-slate-900 dark:text-white font-bold text-base">${subj}</span>${typeBadge}<span class="block text-sm text-slate-500 dark:text-gray-400 mt-1 flex items-center gap-2"><div class="p-1 rounded-full bg-slate-200 dark:bg-slate-700"><svg class="w-3 h-3 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div> <span class="text-slate-600 dark:text-slate-400 font-medium">${teach}</span></span>`;
                             } else {
                                 content = `<span>${display}</span>${typeBadge}`;
                             }
 
-                            return `<div class="relative p-3 rounded-xl mt-3 text-sm flex items-start transition-all duration-500 overflow-hidden bg-gray-700/30 border-l-4 border-blue-500/30 hover:bg-gray-700/50">
-                                        <div class="mt-0.5">${numberPrefix}</div>
-                                        <div class="w-full pl-2">${content}</div>
-                                    </div>`;
+                            return `<div class="relative p-3 rounded-2xl mt-3 text-sm flex items-start transition-all duration-300 overflow-hidden bg-slate-50 border border-slate-100 dark:border-none dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50">
+                                            <div class="mt-0.5">${numberPrefix}</div>
+                                            <div class="absolute left-0 top-3 bottom-3 w-1.5 bg-blue-500 rounded-r-lg"></div>
+                                            <div class="w-full pl-4 py-1">${content}</div>
+                                        </div>`;
                         }).join('')
-                        : "<div class='mt-4 text-center py-6 bg-gray-800/50 rounded-xl border border-dashed border-gray-700'><p class='text-gray-500 italic text-sm'>Bu gün dərslər yoxdur, istirahət vaxtıdır! 🎮</p></div>";
+                        : "<div class='mt-4 text-center py-6 bg-white dark:bg-darkCard rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 shadow-sm'><p class='text-slate-400 dark:text-slate-500 italic text-sm'>Bu gün dərslər yoxdur, istirahət vaxtıdır! 🎮</p></div>";
 
-                    // Prepare data for copy
                     const dateStr = tarihFormatla(date).replace('<br>', '');
                     const lessonsData = JSON.stringify(lessons).replace(/"/g, '&quot;');
 
                     container.innerHTML += `
-                        <div class='relative group overflow-hidden rounded-xl transition-all duration-300 ${isTodayReal ? 'bg-gradient-to-br from-gray-800 to-gray-800 border-2 border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.2)] transform scale-[1.02]' : 'bg-gray-800 border border-gray-700 hover:border-gray-600'}'>
+                        <div class='relative group overflow-hidden transition-all duration-300 ${isTodayReal ? 'bg-white dark:bg-darkCard border border-blue-200 dark:border-slate-800 shadow-lg shadow-blue-500/10 transform scale-[1.02] ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-100 dark:ring-offset-darkBg rounded-3xl' : 'bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md rounded-3xl'}'>
                             
-                            <!-- Header -->
-                            <div class="p-4 ${isTodayReal ? 'bg-blue-900/20' : 'bg-gray-900/50'} flex justify-between items-center border-b border-gray-700/50">
+                            <div class="p-4 ${isTodayReal ? 'bg-blue-50/50 dark:bg-blue-500/10' : 'bg-slate-50/50 dark:bg-darkBg/50'} flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
                                 <div>
-                                    <h4 class="text-lg font-bold ${isTodayReal ? 'text-blue-400' : 'text-gray-200'}">
+                                    <h4 class="text-xl font-extrabold tracking-tight ${isTodayReal ? 'text-blue-600 dark:text-blue-400' : 'text-slate-800 dark:text-slate-200'}">
                                         ${tarihFormatla(date)}
                                     </h4>
                                     ${isTodayReal ? '<span class="text-[10px] uppercase font-bold tracking-wider text-blue-500 animate-pulse">Bugün</span>' : ''}
                                 </div>
-                                <button onclick="copyDaySchedule('${dateStr}', ${lessonsData})" class="text-gray-500 hover:text-white bg-gray-700/50 hover:bg-blue-600 p-2 rounded-lg transition-colors" title="Kopyala">
+                                <button onclick="copyDaySchedule('${dateStr}', ${lessonsData})" class="text-slate-500 dark:text-slate-400 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 p-2 rounded-lg transition-colors" title="Kopyala">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                                     </svg>
                                 </button>
                             </div>
 
-                            <!-- Body -->
                             <div class="p-4 pt-2 pb-5">
                                 ${lessonHtml}
                             </div>
@@ -391,17 +1099,101 @@
             if (el) el.classList.remove('hidden');
         };
 
-        document.addEventListener('DOMContentLoaded', () => { init(); });
-
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(registration => console.log('ServiceWorker registration successful'))
-                    .catch(err => console.log('ServiceWorker registration failed: ', err));
+                navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
+                    .then(reg => {
+                        console.log('[SW] Registered');
+                        // Check for updates every time the page loads
+                        reg.update();
+                        // When a new SW takes control, reload to get fresh content
+                        navigator.serviceWorker.addEventListener('controllerchange', () => {
+                            window.location.reload();
+                        });
+                    })
+                    .catch(err => console.warn('[SW] Registration failed:', err));
             });
         }
+
+        // When internet reconnects, reload the page to get fresh Firebase data
+        window.addEventListener('online', () => {
+            console.log('[Network] Online again - reloading for fresh data');
+            window.location.reload();
+        });
+
+        let deferredPrompt;
+        const installContainer = document.getElementById('pwa-install-container');
+        const installBtn = document.getElementById('pwa-install-btn');
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (installContainer) installContainer.classList.remove('hidden');
+            console.log("Install prompt captured");
+        });
+
+        if (isIOS && !isStandalone) {
+            if (installContainer) installContainer.classList.remove('hidden');
+        }
+
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log(`User response to the install prompt: ${outcome}`);
+                    if (outcome === 'accepted') {
+                        installContainer.classList.add('hidden');
+                    }
+                    deferredPrompt = null;
+                } else if (isIOS) {
+                    showIOSInstruction();
+                } else {
+                    alert("Tətbiqi quraşdırmaq üçün brauzer menyusundan 'Tətbiqi Quraşdır' seçin.\n(Qeyd: Əgər bu mesajı görürsünüzsə, brauzerinizdə 'favicon.png' ikonu və ya HTTPS bağlantısı yoxdur.)");
+                }
+            });
+        }
+
+        function showIOSInstruction() {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/80 z-[60] flex flex-col justify-end pb-10 items-center text-center p-4 animate-fade-in';
+            modal.innerHTML = `
+                <div class="bg-gray-800 rounded-xl p-6 max-w-sm mb-4 border border-gray-700 shadow-2xl relative w-full mx-4">
+                    <button onclick="this.parentElement.parentElement.remove()" class="absolute top-2 right-2 text-slate-500 dark:text-gray-400 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                    <h3 class="text-lg font-bold text-white mb-4">iOS-da Yükləmək Üçün:</h3>
+                    <div class="space-y-4 text-left text-sm text-slate-700 dark:text-slate-300">
+                        <div class="flex items-start gap-3">
+                            <span class="bg-gray-700 min-w-6 h-6 flex items-center justify-center rounded-full text-blue-400 font-bold">1</span>
+                            <span>Aşağıdakı mərkəzi <strong class="text-white">Paylaş</strong> (<svg class="w-4 h-4 inline-block -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>) düyməsinə basın.</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="bg-gray-700 min-w-6 h-6 flex items-center justify-center rounded-full text-blue-400 font-bold">2</span>
+                            <span>Menyunu aşağı sürüşdürün və <strong class="text-white">"Ana Ekrana Əlavə Et"</strong> (<span class="text-slate-500 dark:text-gray-400">Add to Home Screen</span>) seçin.</span>
+                        </div>
+                         <div class="flex items-start gap-3">
+                            <span class="bg-gray-700 min-w-6 h-6 flex items-center justify-center rounded-full text-blue-400 font-bold">3</span>
+                             <span>Sağ yuxarı küncdə <strong class="text-white">"Əlavə et"</strong> (Add) düyməsinə basın.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-white animate-bounce pointer-events-none">
+                    <svg class="w-10 h-10 mx-auto drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.remove();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+        });
     </script>
 </body>
 
 </html>
-

@@ -50,7 +50,7 @@ export class SystemManager {
         await setDoc(configRef, { activeSemesterId: semesterId }, { merge: true });
 
         // Initialize default group
-        await this.initializeGroupForSemester(semesterId, "758_KM", "758/KM", 2);
+        await this.initializeGroupForSemester(semesterId, "758_ITS", "758/ITS", 2);
 
         return semesterId;
     }
@@ -99,30 +99,23 @@ export class SystemManager {
 
         await runTransaction(this.db, async (transaction) => {
             const groupDoc = await transaction.get(groupRef);
-            let data = {};
             if (groupDoc.exists()) {
-                data = groupDoc.data();
-            } else {
-                // Group doesn't exist, create it (fallback)
-                data = { name: "758/KM", course: 2, subjects: [], startOfWeek: 1 }; // Default values
-                transaction.set(groupRef, data);
+                const data = groupDoc.data();
+                const currentSubjects = data.subjects || [];
+                const limits = data.subjectLimits || {};
+
+                if (!currentSubjects.includes(subjectName)) {
+                    currentSubjects.push(subjectName);
+                }
+
+                // Update or set limit
+                limits[subjectName] = parseInt(limit);
+
+                transaction.update(groupRef, {
+                    subjects: currentSubjects,
+                    subjectLimits: limits
+                });
             }
-
-            const currentSubjects = data.subjects || [];
-            const limits = data.subjectLimits || {};
-
-            if (!currentSubjects.includes(subjectName)) {
-                currentSubjects.push(subjectName);
-            }
-
-            // Update or set limit
-            limits[subjectName] = parseInt(limit);
-
-            transaction.set(groupRef, {
-                ...data,
-                subjects: currentSubjects,
-                subjectLimits: limits
-            }, { merge: true });
         });
     }
 
@@ -297,8 +290,8 @@ export class SystemManager {
         return ref.id;
     }
 
-    async addAbsence(semesterId, groupId, studentName, subject, date) {
-        const studentId = await this.ensureStudentExists(studentName, groupId);
+    async addAbsence(semesterId, studentName, subject, date) {
+        const studentId = await this.ensureStudentExists(studentName, "758_ITS");
 
         // Add to subcollection
         const absencesRef = collection(this.db, "students", studentId, "semesters", semesterId, "absences");
@@ -313,7 +306,6 @@ export class SystemManager {
             studentId,
             studentName,
             semesterId,
-            groupId, // Store groupId for filtering
             subject,
             date,
             timestamp: serverTimestamp()
@@ -384,5 +376,25 @@ export class SystemManager {
         const q = query(collection(this.db, "students"), where("groupId", "==", groupId));
         const snap = await getDocs(q);
         return snap.docs.map(d => d.data().fullName).sort();
+    }
+
+    // --- Grades Management ---
+
+    async addGrade(semesterId, groupId, studentName, subject, gradeValue) {
+        const studentId = await this.ensureStudentExists(studentName, groupId);
+
+        await addDoc(collection(this.db, "grades_log"), {
+            studentId,
+            studentName,
+            semesterId,
+            groupId,
+            subject,
+            grade: Number(gradeValue),
+            timestamp: serverTimestamp()
+        });
+    }
+
+    async deleteGrade(logId) {
+        await deleteDoc(doc(this.db, "grades_log", logId));
     }
 }
