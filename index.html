@@ -1104,21 +1104,39 @@
                 navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
                     .then(reg => {
                         console.log('[SW] Registered');
-                        // Check for updates every time the page loads
+                        // Check for updates when page loads
                         reg.update();
-                        // When a new SW takes control, reload to get fresh content
+                        // Guard: only reload ONCE after an actual SW update, not on every activation.
+                        // Without this guard, skipWaiting() in sw.js causes an infinite reload loop
+                        // on mobile browsers (especially Chrome Android).
+                        let swUpdated = false;
+                        reg.addEventListener('updatefound', () => {
+                            const newWorker = reg.installing;
+                            if (newWorker) {
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'activated') {
+                                        swUpdated = true;
+                                    }
+                                });
+                            }
+                        });
                         navigator.serviceWorker.addEventListener('controllerchange', () => {
-                            window.location.reload();
+                            if (swUpdated) {
+                                swUpdated = false;
+                                console.log('[SW] Controller changed after update - reloading once');
+                                window.location.reload();
+                            }
                         });
                     })
                     .catch(err => console.warn('[SW] Registration failed:', err));
             });
         }
 
-        // When internet reconnects, reload the page to get fresh Firebase data
+        // When internet reconnects, silently refresh Firebase data WITHOUT a page reload.
+        // A full reload here caused a loop on phones that frequently switch networks.
         window.addEventListener('online', () => {
-            console.log('[Network] Online again - reloading for fresh data');
-            window.location.reload();
+            console.log('[Network] Online again - refreshing data silently');
+            init().catch(err => console.warn('[Network] Silent refresh failed:', err));
         });
 
         let deferredPrompt;
